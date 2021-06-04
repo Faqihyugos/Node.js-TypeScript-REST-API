@@ -58,7 +58,7 @@ class UsersMiddleware {
         } else {
             next();
         }
-    }
+    };
 
     async validateUserExists(
         req: express.Request,
@@ -73,6 +73,15 @@ class UsersMiddleware {
                 error: `User ${req.params.userId} not found`,
             });
         }
+    }
+
+    async extractUserId(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        req.body.id = req.params.userId;
+        next();
     }
 
 }
