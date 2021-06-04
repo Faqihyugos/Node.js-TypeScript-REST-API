@@ -10,13 +10,13 @@ export class UsersRoutes extends CommonRoutesConfig {
     }
     configureRoutes() {
         this.app.route('/users')
-            .get(usersController.listUsers)
+            .get(UsersController.listUsers)
             .post(
                 UsersMiddleware.validateRequiredUserBodyFields,
                 UsersMiddleware.validateSameEmailDoesntExist,
                 UsersController.createUser
             );
-        this.app.param(`userId`, usersMiddleware.extractUserId);
+        this.app.param(`userId`, UsersMiddleware.extractUserId);
         this.app
             .route(`/users/:userId`)
             .all(UsersMiddleware.validateUserExists)
@@ -33,7 +33,7 @@ export class UsersRoutes extends CommonRoutesConfig {
             UsersMiddleware.validatePatchEmail,
             UsersController.patch,
         ]);
-        
+
         return this.app;
     }
 }
